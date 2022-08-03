@@ -25,16 +25,18 @@ public class User implements UserDetails {
     private String lastname;
     @Column(name = "email", unique = true)
     private String email;
+    private int age;
     private String password;
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Role> roles;
 
-    public User(String name, String lastname, String email) {
+    public User(String name, String lastname, String email, int age) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.age = age;
     }
 
     @Override

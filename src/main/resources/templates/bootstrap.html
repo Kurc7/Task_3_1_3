@@ -120,6 +120,7 @@
                                                             <th>ID</th>
                                                             <th>First name</th>
                                                             <th>Last name</th>
+                                                            <th>Age</th>
                                                             <th>Email</th>
                                                             <th>Role</th>
                                                             <th sec:authorize="hasRole('ADMIN')">Edit</th>
@@ -136,6 +137,9 @@
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                                 <th th:text="${user.getLastname()}"
+                                                                    style="vertical-align: middle">
+                                                                </th>
+                                                                <th th:text="${user.getAge()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                                 <th th:text="${user.getEmail()}"
@@ -173,6 +177,9 @@
                                                                 <th th:text="${person.getLastname()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
+                                                                <th th:text="${person.getAge()}"
+                                                                    style="vertical-align: middle">
+                                                                </th>
                                                                 <th th:text="${person.getEmail()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
@@ -205,6 +212,7 @@
                                                             <th>ID</th>
                                                             <th>First name</th>
                                                             <th>Last name</th>
+                                                            <th>Age</th>
                                                             <th>Email</th>
                                                             <th>Role</th>
                                                         </tr>
@@ -219,6 +227,9 @@
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                                 <th th:text="${person.getLastname()}"
+                                                                    style="vertical-align: middle">
+                                                                </th>
+                                                                <th th:text="${person.getAge()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                                 <th th:text="${person.getEmail()}"
@@ -260,6 +271,11 @@
                                                     <p class="m-0 text-center"><b>Last name</b></p>
                                                     <input th:field="*{lastname}" class="form-control" id="lastname"
                                                            required="required" placeholder="Enter lastname">
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="m-0 text-center"><b>Last name</b></p>
+                                                    <input th:field="*{age}" type="number" class="form-control" id="age"
+                                                           required="required" placeholder="Enter age">
                                                 </div>
                                                 <div class="form-group">
                                                     <p class="m-0 text-center"><b>Email</b></p>
@@ -330,6 +346,11 @@
                                                required="required" placeholder="Enter lastname">
                                     </div>
                                     <div class="form-group">
+                                        <p class="m-0 text-center"><b>Lastname</b></p>
+                                        <input th:field="*{age}" type="number" class="form-control" id="age_edit"
+                                               required="required" placeholder="Enter age">
+                                    </div>
+                                    <div class="form-group">
                                         <p class="m-0 text-center"><b>Email</b></p>
                                         <input type="email" th:field="*{email}" class="form-control" id="email_edit"
                                                required="required" placeholder="Enter email">
@@ -382,18 +403,19 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0 text-center"><b>First name</b></p>
-                                        <input class="form-control" id="firstname_delete" disabled="disabled"
-                                               placeholder="Enter name">
+                                        <input class="form-control" id="firstname_delete" disabled="disabled">
                                     </div>
                                     <div class="form-group">
-                                        <p class="m-0 text-center"><b>Lastname</b></p>
-                                        <input class="form-control" id="lastname_delete" disabled="disabled"
-                                               placeholder="Enter lastname">
+                                        <p class="m-0 text-center"><b>Last name</b></p>
+                                        <input class="form-control" id="lastname_delete" disabled="disabled">
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0 text-center"><b>Age</b></p>
+                                        <input class="form-control" type="number" id="age_delete" disabled="disabled">
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0 text-center"><b>Email</b></p>
-                                        <input type="email" class="form-control" id="email_delete" disabled="disabled"
-                                               placeholder="Enter email">
+                                        <input type="email" class="form-control" id="email_delete" disabled="disabled">
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0 text-center"><b>Role</b></p>
@@ -425,7 +447,7 @@
     <!--Заполняем поля модальных окон-->
     function setDataModal(tableLine, action) {
         let data = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             data[i] = $(tableLine[i]).text();
         }
         $('#' + action + 'Form').attr('action', '/admin/' + action + '/' + data[0]);
@@ -433,8 +455,9 @@
         $('#Id_' + action).val(data[0]);
         $('#firstname_' + action).val(data[1]);
         $('#lastname_' + action).val(data[2]);
-        $('#email_' + action).val(data[3]);
-        $('#role_' + action).val(data[4]);
+        $('#age_' + action).val(data[3]);
+        $('#email_' + action).val(data[4]);
+        $('#role_' + action).val(data[5]);
     }
 
     //Инициируем заполнение формы модального окна по нажатию кнопки edit

@@ -28,8 +28,8 @@ public class DBInit {
         roleService.save(new Role("ROLE_ADMIN"));
         roleService.save(new Role("ROLE_USER"));
         String[] rolesA = {"ROLE_ADMIN", "ROLE_USER"};
-        userService.saveUser(new User("admin", "admin", "admin@admin.ru"), rolesA, "admin");
+        userService.saveUser(new User("admin", "admin", "admin@admin.ru",31), rolesA, "admin");
         String[] rolesU = {"ROLE_USER"};
-        userService.saveUser(new User("user", "user", "user@user.ru"), rolesU, "user");
+        userService.saveUser(new User("user", "user", "user@user.ru",18), rolesU, "user");
     }
 }

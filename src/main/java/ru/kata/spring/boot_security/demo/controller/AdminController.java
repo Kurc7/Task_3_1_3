@@ -48,7 +48,7 @@ public class AdminController {
     public String edit(@PathVariable(name = "id") long id, @ModelAttribute(value = "user") User user,
                            @RequestParam(value = "userRole", required = false) String[] roles,
                            @ModelAttribute("password") String password) {
-        userService.updateUser(id, user.getName(), user.getLastname(), user.getEmail(), password, roles);
+        userService.updateUser(id, user.getName(), user.getLastname(), user.getEmail(), user.getAge(), password, roles);
         return "redirect:/admin/";
     }
 

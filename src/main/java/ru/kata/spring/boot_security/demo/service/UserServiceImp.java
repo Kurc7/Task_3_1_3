@@ -56,7 +56,7 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
-    public void updateUser(Long id, String name, String lastName, String email, String password, String[] roles) {
+    public void updateUser(Long id, String name, String lastName, String email, int age, String password, String[] roles) {
         User user = getUser(id);
         if (password != null && password.length() > 0) {
             user.setPassword(passwordEncoder.encode(password));
@@ -64,6 +64,7 @@ public class UserServiceImp implements UserService {
         if (roles != null && roles.length > 0) {
             user.setRoles(Arrays.stream(roles).map(roleService::findByName).collect(Collectors.toList()));
         }
+        user.setAge(age);
         user.setName(name);
         user.setLastname(lastName);
         user.setEmail(email);

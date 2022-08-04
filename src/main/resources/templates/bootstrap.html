@@ -145,7 +145,7 @@
                                                                 <th th:text="${user.getEmail()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
-                                                                <th th:text="${user.getRoles()}"
+                                                                <th th:text="${user.getRoles('  ')}"
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                                 <th sec:authorize="hasRole('ADMIN')">
@@ -183,7 +183,7 @@
                                                                 <th th:text="${person.getEmail()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
-                                                                <th th:text="${person.getRoles()}"
+                                                                <th th:text="${person.getRoles('  ')}"
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                             </tr>
@@ -235,7 +235,7 @@
                                                                 <th th:text="${person.getEmail()}"
                                                                     style="vertical-align: middle">
                                                                 </th>
-                                                                <th th:text="${person.getRoles()}"
+                                                                <th th:text="${person.getRoles('  ')}"
                                                                     style="vertical-align: middle">
                                                                 </th>
                                                             </tr>
@@ -292,7 +292,7 @@
                                                     <select multiple class="form-control" id="role" required="required"
                                                             placeholder="Choose Role" size="2" name="userRole">
                                                         <option th:each="role : ${roles}" th:value="${role.getName()}"
-                                                                th:text="${role.getName()}"
+                                                                th:text="${role.toString()}"
                                                                 th:selected="${role.getName().equals('ROLE_USER')}">
                                                             Roles
                                                         </option>
@@ -365,7 +365,7 @@
                                         <select multiple class="form-control" id="role_edit"
                                                 placeholder="Choose Role" size="2" name="userRole">
                                             <option th:each="role : ${roles}" th:value="${role.getName()}"
-                                                    th:text="${role.getName()}">
+                                                    th:text="${role.toString()}">
                                             </option>
                                         </select>
                                     </div>
@@ -422,7 +422,7 @@
                                         <select multiple class="form-control" id="role_delete"
                                                 disabled="disabled" size="2" name="userRole">
                                             <option th:each="role : ${roles}" th:value="${role.getName()}"
-                                                    th:text="${role.getName()}">
+                                                    th:text="${role.toString()}">
                                             </option>
                                         </select>
                                     </div>

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -37,6 +38,10 @@ public class User implements UserDetails {
         this.lastname = lastname;
         this.email = email;
         this.age = age;
+    }
+
+    public String getRoles(String delimiter) {
+        return roles.stream().map(Role::toString).collect(Collectors.joining(delimiter));
     }
 
     @Override

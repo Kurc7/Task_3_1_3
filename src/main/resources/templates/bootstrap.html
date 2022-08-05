@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>All users</title>
+    <title>task3.1.3</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -55,259 +55,291 @@
                     <!--Роль ADMIN-->                                <!--столбик, выделение-->
                     <div sec:authorize="hasRole('ADMIN')" class="nav flex-column nav-pills" role="tablist"
                          aria-orientation="vertical">
-                        <a class="nav-link active pl-4" id="adminTab" data-toggle="pill" href="#adminPanel" role="tab"
-                           aria-selected="true" onclick="$('#adminTab').show()"><h6 class="ml-2">Admin</h6>
+                        <a class="nav-link active pl-4" data-toggle="tab" href="#adminPanel" role="tab"
+                           aria-selected="true"><h6 class="ml-2" onclick="heigh('admin')">Admin</h6>
                         </a>
-                        <a class="nav-link pl-4" data-toggle="pill" href="#profileUser" role="tab"
-                           aria-selected="false" onclick="$('#profileUser').show()"><h6 class="ml-2">User</h6></a>
+                        <a class="nav-link pl-4" data-toggle="tab" href="#userPanel" role="tab"
+                           aria-selected="false" onclick="heigh('user')"><h6 class="ml-2">User</h6></a>
                     </div>
                     <!--Роль USER-->
                     <div sec:authorize="hasRole('ADMIN') != true && hasRole('USER') == true"
                          class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active pl-4" data-toggle="pill" href="#profileUser" role="tab"
-                           aria-selected="true" onclick="$('#profileUser').show()">User</a>
+                           aria-selected="true">User</a>
                     </div>
                 </div>
                 <!--Блок с лева (отображение выборки интерфейсов для ролей USER или ADMIN), соотношение 3 от 12 по сетке (Начало)-->
                 <!--Блок с Права соотношение 9 от 12 по сетке (Начало)-->
                 <div class="col-9  bg-light pr-0 pt-0">
-                    <!--Блок заголовок для пользователя с ролью ADMIN-->
-                    <div class="row  pl-3 pr-8" sec:authorize="hasAnyRole('ADMIN')">
-                        <h2>Admin panel</h2>
-                    </div>
-                    <!--Блок заголовок для пользователя с ролью USER-->
-                    <div class="row pl-3 pr-8" sec:authorize="hasRole('USER') && !hasRole('ADMIN')">
-                        <h2>User information page</h2>
-                    </div>
-                    <div class="bg-light border-0 pr-4">
-                        <!--Блок, который отображает либо информации о пользователе, либо панели администратора (Начало)-->
-                        <!--Блок, который отображает либо информация обо всех пользователях, либо панель добавления нового пользователя (Начало)-->
-                        <div sec:authorize="hasRole('ADMIN')">
-                            <ul class="nav nav-tabs p-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#description">Users table</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#addnewuser">New User</a>
-                                </li>
-                            </ul>
+                    <!--Блок, который отображает либо информации о пользователе, либо панели администратора (Начало)-->
+                    <div class="tab-pane fade show active" id="adminPanel" sec:authorize="hasAnyRole('ADMIN')">
+                        <div class="row  pl-3 pr-8">
+                            <h2>Admin panel</h2>
                         </div>
-                        <!--Блок, который отображает либо информация обо всех пользователях, либо панель добавления нового пользователя (Конец)-->
-                        <div class="tab-content bg-light border pb-0"><!--делаем вкладку переключаемой-->
-                            <!--Блок отображающий панель администратора или пользователя, Начало-->
-                            <div class="tab-pane fade ml-3 mr-3 mt-2 mb-0 show active" id="description">
-                                <div class="bg-white tab-content">
+                        <div class="bg-light border-0 pr-4">
+                            <!--Блок, который отображает либо информация обо всех пользователях, либо панель добавления нового пользователя (Начало)-->
+                            <div>
+                                <ul class="nav nav-tabs p-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#description">Users table</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#addnewuser">New User</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--Блок, который отображает либо информация обо всех пользователях, либо панель добавления нового пользователя (Конец)-->
+                            <div class="tab-content bg-light border pb-0"><!--делаем вкладку переключаемой-->
+                                <!--Блок отображающий панель администратора, Начало-->
+                                <div class="tab-pane fade ml-3 mr-3 mt-2 mb-0 show active" id="description">
                                     <!--Список пользователей, Начало (fade эффект перехода, отображая админку, убираем пользовательский интерфейс)-->
-                                    <div class="tab-pane fade show active" id="adminPanel">
-                                        <div class="col-md-12">
-                                            <!--Границы элемента(d-block: Чтобы показать элемент только на заданном интервале размеров экрана)-->
-                                            <span class="d-block p-2 bg-light border-bottom border-top"
-                                                  style="margin: -10px -15px 10px;" sec:authorize="hasRole('ADMIN')">
+                                    <div class="col-md-12">
+                                        <!--Границы элемента(d-block: Чтобы показать элемент только на заданном интервале размеров экрана)-->
+                                        <span class="d-block p-2 bg-light border-bottom border-top"
+                                              style="margin: -10px -15px 10px;">
                                                     <h4 class="m-2">All users</h4>
                                             </span>
-                                            <span class="d-block p-2 bg-light border-bottom border-top"
-                                                  style="margin: -10px -15px 10px;"
-                                                  sec:authorize="hasRole('ADMIN') != true && hasRole('USER') == true">
-                                                  <h4 class="m-2">About user</h4>
-                                            </span>
-                                            <!--Таблица пользователей, Начало-->
-                                            <div class="row">
-                                                <div class="col-md-12 pr-3 pt-0 pl-3">
-                                                        <!--строки разных цветов, состояние наведения-->
-                                                    <table class="table table-striped table-hover pb-2 pt-1">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>First name</th>
-                                                            <th>Last name</th>
-                                                            <th>Age</th>
-                                                            <th>Email</th>
-                                                            <th>Role</th>
-                                                            <th sec:authorize="hasRole('ADMIN')">Edit</th>
-                                                            <th sec:authorize="hasRole('ADMIN')">Delete</th>
+                                        <div class="row">
+                                            <div class="col-md-12 pr-3 pt-0 pl-3">
+                                                <!--строки разных цветов, состояние наведения-->
+                                                <table class="table table-striped table-hover pb-2 pt-1">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>First name</th>
+                                                        <th>Last name</th>
+                                                        <th>Age</th>
+                                                        <th>Email</th>
+                                                        <th>Role</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <th:block>
+                                                        <tr th:each="user:${allUsers}">
+                                                            <th th:text="${user.getId()}"
+                                                                style="vertical-align: middle"><!--выравнивание-->
+                                                            </th>
+                                                            <th th:text="${user.getName()}"
+                                                                style="vertical-align: middle">
+                                                            </th>
+                                                            <th th:text="${user.getLastname()}"
+                                                                style="vertical-align: middle">
+                                                            </th>
+                                                            <th th:text="${user.getAge()}"
+                                                                style="vertical-align: middle">
+                                                            </th>
+                                                            <th th:text="${user.getEmail()}"
+                                                                style="vertical-align: middle">
+                                                            </th>
+                                                            <th th:text="${user.getRoles('  ')}"
+                                                                style="vertical-align: middle">
+                                                            </th>
+                                                            <th>
+                                                                <!--EditButtonOnTable метка для скрипта-->
+                                                                <button type="button"
+                                                                        class="btn btn-info EditButtonOnTable"
+                                                                        data-toggle="modal"
+                                                                        data-target="#modal-edit">Edit
+                                                                </button>
+                                                            </th>
+                                                            <th>
+                                                                <!--DeleteButtonOnTable метка для скрипта-->
+                                                                <button type="button"
+                                                                        class="btn btn-danger DeleteButtonOnTable"
+                                                                        data-toggle="modal"
+                                                                        data-target="#modal-delete">Delete
+                                                                </button>
+                                                            </th>
                                                         </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <th:block sec:authorize="hasRole('ADMIN')">
-                                                            <tr th:each="user:${allUsers}">
-                                                                <th th:text="${user.getId()}"
-                                                                    style="vertical-align: middle"><!--выравнивание-->
-                                                                </th>
-                                                                <th th:text="${user.getName()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${user.getLastname()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${user.getAge()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${user.getEmail()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${user.getRoles('  ')}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th sec:authorize="hasRole('ADMIN')">
-                                                                    <!--EditButtonOnTable метка для скрипта-->
-                                                                    <button type="button"
-                                                                            class="btn btn-info EditButtonOnTable"
-                                                                            data-toggle="modal"
-                                                                            data-target="#modal-edit">Edit
-                                                                    </button>
-                                                                </th>
-                                                                <th sec:authorize="hasRole('ADMIN')">
-                                                                    <!--DeleteButtonOnTable метка для скрипта-->
-                                                                    <button type="button"
-                                                                            class="btn btn-danger DeleteButtonOnTable"
-                                                                            data-toggle="modal"
-                                                                            data-target="#modal-delete">Delete
-                                                                    </button>
-                                                                </th>
-                                                            </tr>
-                                                        </th:block>
-                                                        <th:block sec:authorize="hasRole('ADMIN') != true && hasRole('USER') == true">
-                                                            <tr>
-                                                                <th th:text="${person.getId()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getName()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getLastname()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getAge()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getEmail()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getRoles('  ')}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                            </tr>
-                                                        </th:block>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div><!--Таблица пользователей, Конец-->
-                                        </div>
-                                    </div>
-                                    <!--Список пользователей, Конец-->
-                                    <!--Пользовательский интерфейс для админа, начало-->
-                                    <div class="tab-pane fade" id="profileUser">
-                                        <!--fade эффект перехода, отображая пользовательский интерфейс, убираем админку-->
-                                        <div class="col-md-12">
-                                            <span class="d-block p-2 bg-light border-bottom border-top"
-                                                  style="margin: -10px -15px 10px;">
-                                                  <h4 class="m-2">About user</h4>
-                                            </span>
-                                            <div class="row">
-                                                <div class="col-md-12 pr-3 pt-0 pl-3"
-                                                     style="overflow: auto; overflow-y: hidden;">
-                                                    <table class="table table-striped table-hover pb-2 pt-1">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>First name</th>
-                                                            <th>Last name</th>
-                                                            <th>Age</th>
-                                                            <th>Email</th>
-                                                            <th>Role</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <th:block>
-                                                            <tr>
-                                                                <th th:text="${person.getId()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getName()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getLastname()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getAge()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getEmail()}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                                <th th:text="${person.getRoles('  ')}"
-                                                                    style="vertical-align: middle">
-                                                                </th>
-                                                            </tr>
-                                                        </th:block>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </th:block>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        </div>
-                                    </div><!--Пользовательский интерфейс для админа, Конец-->
-                                </div>
-                            </div><!--Блок отображающий панель администратора или пользователя, Конец-->
-                            <!--Блок добавления нового пользователя, Начало-->
-                            <div class="tab-pane fade " id="addnewuser" sec:authorize="hasRole('ADMIN')">
-                                <div class="row">
-                                    <div class="col-md-12">
+                                        </div><!--Таблица пользователей, Конец-->
+                                    </div><!--Список пользователей, Конец-->
+                                </div><!--Блок отображающий панель администратора, Конец-->
+                                <!--Блок добавления нового пользователя, Начало-->
+                                <div class="tab-pane fade " id="addnewuser">
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <span class="d-block p-2 bg-light border-bottom">
                                                 <h4 class="m-2">Add user</h4>
                                             </span>
-                                    </div>
-                                </div>                                              <!--Расположение по центру-->
-                                <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0 bg-white pr-1 pt-4">
-                                    <div class="row pt-1 pr-" style="width: 300px;">
-                                        <div class="col-md-12 pr-3 pt-0 pl-0"
-                                             style="overflow: auto; overflow-y: hidden;">
-                                            <form th:method="POST" th:action="@{/add}" th:object="${newUser}">
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>First name</b></p>
-                                                    <input th:field="*{name}" class="form-control" id="firstname"
-                                                           required="required" placeholder="Enter name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>Last name</b></p>
-                                                    <input th:field="*{lastname}" class="form-control" id="lastname"
-                                                           required="required" placeholder="Enter lastname">
-                                                </div>
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>Last name</b></p>
-                                                    <input th:field="*{age}" type="number" class="form-control" id="age"
-                                                           required="required" placeholder="Enter age">
-                                                </div>
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>Email</b></p>
-                                                    <input type="email" th:field="*{email}" class="form-control"
-                                                           id="email" required="required" placeholder="Enter email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>Password</b></p>
-                                                    <input th:field="*{password}" class="form-control" id="password"
-                                                           required="required" placeholder="Enter password">
-                                                </div>
-                                                <div class="form-group">
-                                                    <p class="m-0 text-center"><b>Role</b></p>
-                                                    <select multiple class="form-control" id="role" required="required"
-                                                            placeholder="Choose Role" size="2" name="userRole">
-                                                        <option th:each="role : ${roles}" th:value="${role.getName()}"
-                                                                th:text="${role.toString()}"
-                                                                th:selected="${role.getName().equals('ROLE_USER')}">
-                                                            Roles
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div class="text-center pb-3">
-                                                    <button type="submit" class="btn btn-success">Add new user</button>
-                                                </div>
-                                            </form>
+                                        </div>
+                                    </div>                                              <!--Расположение по центру-->
+                                    <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0 bg-white pr-1 pt-4">
+                                        <div class="row pt-1 pr-" style="width: 300px;">
+                                            <div class="col-md-12 pr-3 pt-0 pl-0"
+                                                 style="overflow: auto; overflow-y: hidden;">
+                                                <form th:method="POST" th:action="@{/add}" th:object="${newUser}">
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>First name</b></p>
+                                                        <input th:field="*{name}" class="form-control" id="firstname"
+                                                               required="required" placeholder="Enter name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>Last name</b></p>
+                                                        <input th:field="*{lastname}" class="form-control" id="lastname"
+                                                               required="required" placeholder="Enter lastname">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>Last name</b></p>
+                                                        <input th:field="*{age}" type="number" class="form-control"
+                                                               id="age"
+                                                               required="required" placeholder="Enter age">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>Email</b></p>
+                                                        <input type="email" th:field="*{email}" class="form-control"
+                                                               id="email" required="required" placeholder="Enter email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>Password</b></p>
+                                                        <input th:field="*{password}" class="form-control" id="password"
+                                                               required="required" placeholder="Enter password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="m-0 text-center"><b>Role</b></p>
+                                                        <select multiple class="form-control" id="role"
+                                                                required="required"
+                                                                placeholder="Choose Role" size="2" name="userRole">
+                                                            <option th:each="role : ${roles}"
+                                                                    th:value="${role.getName()}"
+                                                                    th:text="${role.toString()}"
+                                                                    th:selected="${role.getName().equals('ROLE_USER')}">
+                                                                Roles
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-center pb-3">
+                                                        <button type="submit" class="btn btn-success">Add new user
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div><!--Блок добавления нового пользователя, Конец-->
+                                </div><!--Блок добавления нового пользователя, Конец-->
+                            </div>
                         </div>
                     </div>
+                    <!--Блок, который отображает либо информации о пользователе, либо панели администратора (конец)-->
+                    <!--Пользовательский интерфейс для админа, начало-->
+                    <div class="tab-pane fade" id="userPanel" sec:authorize="hasAnyRole('ADMIN')">
+                        <!--Блок заголовок для пользователя с ролью USER-->
+                        <div class="row  pl-3 pr-8">
+                            <h2>User information page</h2>
+                        </div>
+                        <div class="bg-light border-0 pr-4">
+                            <div class="col-md-12">
+                            <span class="d-block p-2 bg-light border-bottom border-top"
+                                  style="margin: 0px -15px 10px;">
+                                  <h4 class="m-2">About user</h4>
+                            </span>
+                                <div class="row">
+                                    <div class="col-md-12 pr-3 pt-0 pl-3"
+                                         style="overflow: auto; overflow-y: hidden;">
+                                        <table class="table table-striped table-hover pb-2 pt-1">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First name</th>
+                                                <th>Last name</th>
+                                                <th>Age</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <th:block>
+                                                <tr>
+                                                    <th th:text="${person.getId()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getName()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getLastname()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getAge()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getEmail()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getRoles('  ')}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                </tr>
+                                            </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Пользовательский интерфейс для админа, Конец-->
+                    <!--Пользовательский интерфейс, начало-->
+                    <div class="tab-pane fade show active" id="profileUser"
+                         sec:authorize="hasRole('ADMIN') != true && hasRole('USER') == true">
+                        <div class="row  pl-3 pr-8">
+                            <h2>User information page</h2>
+                        </div>
+                        <div class="bg-light border-0 pr-4">
+                            <div class="col-md-12">
+                            <span class="d-block p-2 bg-light border-bottom border-top"
+                                  style="margin: 0px -15px 10px;">
+                                  <h4 class="m-2">About user</h4>
+                            </span>
+                                <div class="row">
+                                    <div class="col-md-12 pr-3 pt-0 pl-3"
+                                         style="overflow: auto; overflow-y: hidden;">
+                                        <table class="table table-striped table-hover pb-2 pt-1">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First name</th>
+                                                <th>Last name</th>
+                                                <th>Age</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <th:block>
+                                                <tr>
+                                                    <th th:text="${person.getId()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getName()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getLastname()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getAge()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getEmail()}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                    <th th:text="${person.getRoles('  ')}"
+                                                        style="vertical-align: middle">
+                                                    </th>
+                                                </tr>
+                                            </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Пользовательский интерфейс, Конец-->
                 </div>
                 <!--Блок с Права соотношение 9 от 12 по сетке (Конец)-->
             </div>
@@ -471,6 +503,18 @@
         let arrayVal = $(this).parent('th').siblings('th');
         setDataModal(arrayVal, 'delete');
     });
+
+    let adminPanle = document.querySelector("#adminPanel");
+    let adminPanleHeight = document.getElementById("#adminPanel").style.height;
+
+    function heigh(mode) {
+        if (mode === 'user') {
+            adminPanle.style.height = 0 + "px";
+        } else if (mode === 'admin') {
+            adminPanle.style.height = adminPanleHeight;
+        }
+    }
+
 </script>
 </body>
 </html>

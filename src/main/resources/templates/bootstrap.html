@@ -393,7 +393,7 @@
                                     <div class="form-group">
                                         <p class="m-0 text-center"><b>Role</b></p>
                                         <select multiple class="form-control" id="role_edit"
-                                                placeholder="Choose Role" size="2" name="userRole">
+                                                placeholder="Choose Role" size="2" name="userRole" required="required">
                                             <option th:each="role : ${roles}" th:value="${role.getName()}"
                                                     th:text="${role.toString()}">
                                             </option>

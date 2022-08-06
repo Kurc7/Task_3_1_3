@@ -185,7 +185,7 @@
                                                                required="required" placeholder="Enter lastname">
                                                     </div>
                                                     <div class="form-group">
-                                                        <p class="m-0 text-center"><b>Last name</b></p>
+                                                        <p class="m-0 text-center"><b>Age</b></p>
                                                         <input th:field="*{age}" type="number" class="form-control"
                                                                id="age"
                                                                required="required" placeholder="Enter age">
@@ -346,7 +346,6 @@
         </div>
     </div>
 </div>
-</div>
 <!--Модальные окна EDIT и DELETE-->
 <div sec:authorize="hasRole('ADMIN')">
     <div id="modal-edit" class="modal fade">
@@ -473,7 +472,6 @@
         </div>
 
     </div>
-</div>
 </div>
 <script>
     <!--Заполняем поля модальных окон-->
